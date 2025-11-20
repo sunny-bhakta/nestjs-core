@@ -1,0 +1,24 @@
+{
+  "name": "nodejs-core-concepts",
+  "version": "1.0.0",
+  "description": "Comprehensive Node.js core concepts with documentation and examples",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node examples/01-core-fundamentals.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "keywords": [
+    "nodejs",
+    "javascript",
+    "tutorial",
+    "examples",
+    "documentation"
+  ],
+  "author": "",
+  "license": "MIT"
+}
+

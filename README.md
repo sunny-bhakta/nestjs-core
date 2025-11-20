@@ -1,961 +1,880 @@
-# NestJS Core Concepts
+# Node.js Core Concepts
 
-This document lists all the core concepts and features of NestJS framework with comprehensive code examples.
+This repository contains comprehensive documentation and working code examples of essential Node.js concepts that every developer should understand.
 
-## 📚 Code Examples
+## 📚 Documentation and Examples
 
-All code examples are located in the `examples/` directory, organized by concept:
+All concepts include detailed documentation and working code examples:
 
-- **[00-architecture/](./examples/00-architecture/)** - Application architecture (main.ts, module organization)
-- **[01-core/](./examples/01-core/)** - Core concepts (Modules, Controllers, Services, Dependency Injection)
-- **[02-decorators/](./examples/02-decorators/)** - All decorator types and custom decorators
-- **[03-middleware/](./examples/03-middleware/)** - Middleware examples (functional, class-based)
-- **[04-pipes/](./examples/04-pipes/)** - Built-in and custom pipes
-- **[05-guards/](./examples/05-guards/)** - Authentication and authorization guards
-- **[06-interceptors/](./examples/06-interceptors/)** - Logging, transformation, caching interceptors
-- **[07-exceptions/](./examples/07-exceptions/)** - Exception filters and error handling
-- **[08-validation/](./examples/08-validation/)** - DTOs and validation with class-validator
-- **[09-configuration/](./examples/09-configuration/)** - Configuration management
-- **[10-database/](./examples/10-database/)** - TypeORM integration examples
-- **[11-auth/](./examples/11-auth/)** - JWT authentication and authorization
-- **[12-advanced/](./examples/12-advanced/)** - WebSockets, GraphQL, Microservices, CQRS, File Upload, Caching, Scheduling
+- **[📖 Documentation](./docs/)** - Detailed explanations for each concept
+- **[💻 Code Examples](./examples/)** - Working code examples you can run
 
 ## Table of Contents
 
-1. [Core Concepts](#core-concepts)
-2. [Architecture](#architecture)
-3. [Decorators](#decorators)
-4. [Dependency Injection](#dependency-injection)
-5. [Modules](#modules)
-6. [Controllers](#controllers)
-7. [Providers & Services](#providers--services)
-8. [Middleware](#middleware)
-9. [Exception Filters](#exception-filters)
-10. [Pipes](#pipes)
-11. [Guards](#guards)
-12. [Interceptors](#interceptors)
-13. [Custom Decorators](#custom-decorators)
-14. [Lifecycle Hooks](#lifecycle-hooks)
-15. [Configuration](#configuration)
-16. [Database Integration](#database-integration)
-17. [Authentication & Authorization](#authentication--authorization)
-18. [Validation](#validation)
-19. [Testing](#testing)
-20. [Advanced Features](#advanced-features)
+1. [Core Fundamentals](#core-fundamentals)
+2. [Modules and Package Management](#modules-and-package-management)
+3. [File System Operations](#file-system-operations)
+4. [Asynchronous Programming](#asynchronous-programming)
+5. [Streams](#streams)
+6. [Events and Event Emitter](#events-and-event-emitter)
+7. [HTTP and Web Servers](#http-and-web-servers)
+8. [Buffers](#buffers)
+9. [Process and OS](#process-and-os)
+10. [Error Handling](#error-handling)
+11. [Child Processes](#child-processes)
+12. [Clusters](#clusters)
+13. [Path Module](#path-module)
+14. [URL Module](#url-module)
+15. [Crypto Module](#crypto-module)
+16. [Timers](#timers)
+17. [Utilities](#utilities)
+18. [Best Practices](#best-practices)
 
 ---
 
-## Core Concepts
+## Core Fundamentals
 
-### 1. **Modules** (`@Module`)
-- Root Module - [Example](./examples/01-core/app.module.ts)
-- Feature Modules - [Example](./examples/01-core/users/users.module.ts), [Products Example](./examples/01-core/products/products.module.ts)
-- Shared Modules - [Example](./examples/01-core/shared/shared.module.ts)
-- Global Modules (`@Global()`) - [Example](./examples/01-core/shared/shared.module.ts)
-- Dynamic Modules - [Example](./examples/01-core/dynamic/dynamic.module.ts)
-- Module Re-exporting - [Example](./examples/00-architecture/module-organization.example.ts)
+**📖 [Full Documentation](./docs/01-core-fundamentals.md)** | **💻 [Examples](./examples/01-core-fundamentals.js)** | **🏗️ [Architecture Demo](./examples/01-architecture-demo.js)**
 
-**Code Examples:**
-- [Root Module](./examples/01-core/app.module.ts)
-- [Feature Module - Users](./examples/01-core/users/users.module.ts)
-- [Feature Module - Products](./examples/01-core/products/products.module.ts)
-- [Shared/Global Module](./examples/01-core/shared/shared.module.ts)
-- [Basic Dynamic Module](./examples/01-core/dynamic/dynamic.module.ts)
-- **[Complete Dynamic Module Patterns](./examples/01-core/dynamic-modules/)** - All patterns (forRoot, forRootAsync, forFeature, forFeatureAsync, register, registerAsync)
-  - [Complete Implementation](./examples/01-core/dynamic-modules/complete-dynamic-module.example.ts)
-  - [Usage Examples](./examples/01-core/dynamic-modules/usage-examples.module.ts)
-  - [Cache Module Example](./examples/01-core/dynamic-modules/cache-module.example.ts)
-  - [HTTP Client Module Example](./examples/01-core/dynamic-modules/http-client-module.example.ts)
-  - [Logger Module Example](./examples/01-core/dynamic-modules/logger-module.example.ts)
-  - [Dynamic Modules Guide](./examples/01-core/dynamic-modules/README.md)
+### 1. What is Node.js?
+- JavaScript runtime built on Chrome's V8 engine
+- Event-driven, non-blocking I/O model
+- Single-threaded with event loop
+- Package ecosystem (npm)
 
-### 2. **Controllers** (`@Controller`)
-- Route Handlers - [Example](./examples/01-core/app.controller.ts)
-- Request Object
-- Response Object
-- Route Parameters
-- Query Parameters
-- Request Body
-- Route Wildcards
-- Status Codes
-- Headers
+### 2. Node.js Architecture
+- V8 JavaScript Engine
+- Node.js Bindings (libuv)
+- Event Loop
+- Thread Pool
+- Callback Queue
 
-**Code Examples:**
-- [Complete Controller Example](./examples/01-core/app.controller.ts)
-- [Feature Controller](./examples/01-core/users/users.controller.ts)
+### 3. Global Objects
+- `global` / `globalThis`
+- `process`
+- `console`
+- `Buffer`
+- `__dirname` (CommonJS)
+- `__filename` (CommonJS)
+- `module`
+- `exports`
+- `require`
 
-### 3. **Providers** (`@Injectable`)
-- Services - [Example](./examples/01-core/app.service.ts)
-- Repositories - [Example](./examples/01-core/users/users.repository.ts)
-- Factories - [Example](./examples/01-core/providers/factories-and-helpers.example.ts)
-- Helpers - [Example](./examples/01-core/providers/factories-and-helpers.example.ts)
-- Custom Providers - [Example](./examples/01-core/dependency-injection/custom-providers.example.ts)
-- Optional Providers - [Example](./examples/01-core/dependency-injection/optional-dependencies.example.ts)
-- Property-based Injection - [Example](./examples/01-core/dependency-injection/property-injection.example.ts)
-
-**Code Examples:**
-- [Service](./examples/01-core/app.service.ts)
-- [Repository Pattern](./examples/01-core/users/users.repository.ts)
-- [Factories and Helpers](./examples/01-core/providers/factories-and-helpers.example.ts)
-- [Custom Providers](./examples/01-core/dependency-injection/custom-providers.example.ts)
-- [Optional Dependencies](./examples/01-core/dependency-injection/optional-dependencies.example.ts)
-
-### 4. **Dependency Injection (DI)**
-- Constructor Injection - [Example](./examples/01-core/dependency-injection/constructor-injection.example.ts)
-- Property Injection - [Example](./examples/01-core/dependency-injection/property-injection.example.ts)
-- Optional Dependencies - [Example](./examples/01-core/dependency-injection/optional-dependencies.example.ts)
-- Custom Providers - [Example](./examples/01-core/dependency-injection/custom-providers.example.ts)
-- Scope (Singleton, Request, Transient) - [Example](./examples/01-core/dependency-injection/scopes.example.ts)
-
-**Code Examples:**
-- [Constructor Injection](./examples/01-core/dependency-injection/constructor-injection.example.ts)
-- [Property Injection](./examples/01-core/dependency-injection/property-injection.example.ts)
-- [Optional Dependencies](./examples/01-core/dependency-injection/optional-dependencies.example.ts)
-- [Provider Scopes](./examples/01-core/dependency-injection/scopes.example.ts)
-- [Custom Providers](./examples/01-core/dependency-injection/custom-providers.example.ts)
-
-### 5. **Service Locator Pattern**
-- Basic Service Locator - [Example](./examples/01-core/service-locator/service-locator.example.ts)
-- Cached Service Locator - [Example](./examples/01-core/service-locator/service-locator.example.ts)
-- Dynamic Service Locator - [Example](./examples/01-core/service-locator/service-locator.example.ts)
-- Factory Service Locator - [Example](./examples/01-core/service-locator/service-locator.example.ts)
-- Scoped Service Locator - [Example](./examples/01-core/service-locator/service-locator.example.ts)
-- Lazy Service Locator - [Example](./examples/01-core/service-locator/service-locator.example.ts)
-- Plugin System - [Example](./examples/01-core/service-locator/service-locator-advanced.example.ts)
-- Strategy Pattern - [Example](./examples/01-core/service-locator/service-locator-advanced.example.ts)
-
-**Code Examples:**
-- [Complete Service Locator Example](./examples/01-core/service-locator/service-locator.example.ts)
-- [Service Locator Controller](./examples/01-core/service-locator/service-locator.controller.ts)
-- [Advanced Patterns](./examples/01-core/service-locator/service-locator-advanced.example.ts)
-- [Service Locator Documentation](./examples/01-core/service-locator/README.md)
+### 4. Node.js vs Browser JavaScript
+- No `window` object
+- No `document` object
+- Access to file system
+- Server-side capabilities
+- Different module system
 
 ---
 
-## Architecture
+## Modules and Package Management
 
-**Code Examples:**
-- [Main Entry Point](./examples/00-architecture/main.ts)
-- [Module Organization](./examples/00-architecture/module-organization.example.ts)
+**📖 [Full Documentation](./docs/02-modules-package-management.md)** | **💻 [Examples](./examples/02-modules/)**
 
-### **Application Structure**
-- Main Entry Point (`main.ts`) - [Example](./examples/00-architecture/main.ts)
-- App Module (`app.module.ts`) - [Example](./examples/01-core/app.module.ts)
-- Module Organization - [Example](./examples/00-architecture/module-organization.example.ts)
-- Feature-based Architecture - [Example](./examples/00-architecture/module-organization.example.ts)
-- Layered Architecture - [Example](./examples/00-architecture/module-organization.example.ts)
-- Module Re-exporting - [Example](./examples/00-architecture/module-organization.example.ts)
+### 1. CommonJS Modules
+- `require()` function
+- `module.exports`
+- `exports` object
+- Module caching
+- Module resolution
 
-### **Request Lifecycle**
-1. Middleware
-2. Guards
-3. Interceptors (before)
-4. Pipes
-5. Controller Handler
-6. Service
-7. Interceptors (after)
-8. Exception Filters
-9. Response
+### 2. ES6 Modules (ESM)
+- `import` / `export` statements
+- `.mjs` extension
+- `"type": "module"` in package.json
+- Dynamic imports
 
----
+### 3. Built-in Modules
+- `fs` - File System
+- `http` / `https` - HTTP/HTTPS
+- `path` - Path utilities
+- `url` - URL parsing
+- `crypto` - Cryptographic functions
+- `os` - Operating system utilities
+- `events` - Event emitter
+- `stream` - Streams
+- `util` - Utility functions
+- `buffer` - Binary data
+- `child_process` - Child processes
+- `cluster` - Clustering
+- `net` - Network
+- `dns` - DNS
+- `zlib` - Compression
+- `readline` - Readline interface
 
-## Decorators
+### 4. npm (Node Package Manager)
+- `package.json`
+- `package-lock.json`
+- Installing packages
+- Semantic versioning
+- npm scripts
+- npm registry
+- Private packages
 
-**Code Examples:**
-- [Parameter Decorators](./examples/02-decorators/parameter-decorators.example.ts)
-- [Method Decorators](./examples/02-decorators/method-decorators.example.ts)
-- [Custom Decorators](./examples/02-decorators/custom-decorators.example.ts)
-
-### **Class Decorators**
-- `@Module()` - Define a module
-- `@Controller()` - Define a controller
-- `@Injectable()` - Define a provider
-- `@Global()` - Make module global
-- `@Catch()` - Exception filter
-
-### **Method Decorators**
-- `@Get()` - HTTP GET handler - [Example](./examples/02-decorators/method-decorators.example.ts)
-- `@Post()` - HTTP POST handler
-- `@Put()` - HTTP PUT handler
-- `@Patch()` - HTTP PATCH handler
-- `@Delete()` - HTTP DELETE handler
-- `@All()` - All HTTP methods handler
-- `@UseGuards()` - Apply guards
-- `@UseInterceptors()` - Apply interceptors
-- `@UsePipes()` - Apply pipes
-- `@UseFilters()` - Apply exception filters
-- `@SetMetadata()` - Set custom metadata
-- `@Headers()` - Extract headers
-- `@Ip()` - Extract IP address
-- `@Session()` - Extract session
-- `@HostParam()` - Extract host parameter
-- `@Req()` / `@Request()` - Request object
-- `@Res()` / `@Response()` - Response object
-- `@Next()` - Next function
-- `@Body()` - Request body
-- `@Query()` - Query parameters
-- `@Param()` - Route parameters
-- `@HttpCode()` - Set status code
-- `@Header()` - Set response header
-- `@Redirect()` - Redirect response
-- `@Render()` - Render template
-
-### **Parameter Decorators**
-- `@Body()` - [Example](./examples/02-decorators/parameter-decorators.example.ts)
-- `@Query()` - [Example](./examples/02-decorators/parameter-decorators.example.ts)
-- `@Param()` - [Example](./examples/02-decorators/parameter-decorators.example.ts)
-- `@Headers()` - [Example](./examples/02-decorators/parameter-decorators.example.ts)
-- `@Ip()` - [Example](./examples/02-decorators/parameter-decorators.example.ts)
-- `@Session()` - [Example](./examples/02-decorators/parameter-decorators.example.ts)
-- `@HostParam()` - [Example](./examples/02-decorators/parameter-decorators.example.ts)
-- `@Req()` / `@Request()` - [Example](./examples/02-decorators/parameter-decorators.example.ts)
-- `@Res()` / `@Response()` - [Example](./examples/02-decorators/parameter-decorators.example.ts)
-- `@Next()` - [Example](./examples/02-decorators/parameter-decorators.example.ts)
-
-### **Property Decorators**
-- `@Inject()` - Inject dependency
-- `@Optional()` - Optional dependency
-- `@InjectRepository()` - Inject repository (TypeORM)
-- `@InjectModel()` - Inject model (Mongoose)
-
-### **Custom Decorators**
-- [Custom Parameter Decorators](./examples/02-decorators/custom-decorators.example.ts)
-- [Custom Metadata Decorators](./examples/02-decorators/custom-decorators.example.ts)
+### 5. Module Patterns
+- Exporting functions
+- Exporting objects
+- Exporting classes
+- Default exports
+- Named exports
 
 ---
 
-## Dependency Injection
+## File System Operations
 
-### **Scopes**
-- **DEFAULT** (Singleton) - Single instance shared across app
-- **REQUEST** - New instance per request
-- **TRANSIENT** - New instance every time injected
+**📖 [Full Documentation](./docs/03-file-system-operations.md)** | **💻 [Examples](./examples/03-file-system/)**
 
-### **Custom Providers**
-- Value Providers
-- Factory Providers
-- Class Providers
-- Async Providers
-- Existing Providers
+### 1. Synchronous Operations
+- `fs.readFileSync()`
+- `fs.writeFileSync()`
+- `fs.mkdirSync()`
+- `fs.unlinkSync()`
+- `fs.statSync()`
 
-### **Injection Tokens**
-- String Tokens
-- Symbol Tokens
-- Class Tokens
+### 2. Asynchronous Operations
+- `fs.readFile()`
+- `fs.writeFile()`
+- `fs.mkdir()`
+- `fs.unlink()`
+- `fs.stat()`
+- Callback pattern
 
----
+### 3. Promise-based Operations
+- `fs.promises.readFile()`
+- `fs.promises.writeFile()`
+- `fs.promises.mkdir()`
+- Using async/await
 
-## Service Locator Pattern
+### 4. File Operations
+- Reading files
+- Writing files
+- Appending to files
+- Deleting files
+- Renaming files
+- Copying files
 
-### **Overview**
-The Service Locator pattern provides a way to obtain service instances dynamically using `ModuleRef`. It's useful for plugin systems, strategy patterns, and dynamic service resolution.
+### 5. Directory Operations
+- Creating directories
+- Reading directories
+- Removing directories
+- Directory traversal
 
-### **Basic Patterns**
-- **Basic Service Locator** - Simple service retrieval - [Example](./examples/01-core/service-locator/service-locator.example.ts)
-- **Cached Service Locator** - Service caching - [Example](./examples/01-core/service-locator/service-locator.example.ts)
-- **Dynamic Service Locator** - Runtime service resolution - [Example](./examples/01-core/service-locator/service-locator.example.ts)
-- **Factory Service Locator** - Service creation - [Example](./examples/01-core/service-locator/service-locator.example.ts)
-- **Scoped Service Locator** - Request-scoped services - [Example](./examples/01-core/service-locator/service-locator.example.ts)
-- **Lazy Service Locator** - Lazy service loading - [Example](./examples/01-core/service-locator/service-locator.example.ts)
-
-### **Advanced Patterns**
-- **Plugin System** - Dynamic plugin registration - [Example](./examples/01-core/service-locator/service-locator-advanced.example.ts)
-- **Strategy Pattern** - Runtime strategy selection - [Example](./examples/01-core/service-locator/service-locator-advanced.example.ts)
-- **Repository Pattern** - Dynamic repository management - [Example](./examples/01-core/service-locator/service-locator-advanced.example.ts)
-- **Event Dispatcher** - Event handler registration - [Example](./examples/01-core/service-locator/service-locator-advanced.example.ts)
-
-### **When to Use**
-- ✅ Dynamic service resolution
-- ✅ Plugin systems
-- ✅ Strategy pattern implementations
-- ✅ Conditional service loading
-- ✅ Lazy loading
-
-### **When NOT to Use**
-- ❌ Standard dependency injection cases
-- ❌ Simple service dependencies
-- ❌ When dependencies are known at compile time
-
-**Code Examples:**
-- [Complete Service Locator Example](./examples/01-core/service-locator/service-locator.example.ts)
-- [Service Locator Controller](./examples/01-core/service-locator/service-locator.controller.ts)
-- [Advanced Patterns](./examples/01-core/service-locator/service-locator-advanced.example.ts)
-- [Complete Documentation](./examples/01-core/service-locator/README.md)
+### 6. File Watching
+- `fs.watch()`
+- `fs.watchFile()`
+- File system events
 
 ---
 
-## Modules
+## Asynchronous Programming
 
-### **Module Types**
-- Root Module
-- Feature Modules
-- Shared Modules
-- Global Modules
-- Dynamic Modules - [Complete Examples](./examples/01-core/dynamic-modules/)
-- Module Re-exporting - [Example](./examples/00-architecture/module-organization.example.ts)
+**📖 [Full Documentation](./docs/04-asynchronous-programming.md)** | **💻 [Examples](./examples/04-asynchronous/)** | **🔄 [Event Loop Deep Dive](./docs/17-event-loop.md)**
 
-### **Dynamic Module Patterns**
-- `forRoot()` - Synchronous root configuration - [Example](./examples/01-core/dynamic-modules/complete-dynamic-module.example.ts)
-- `forRootAsync()` - Asynchronous root configuration - [Example](./examples/01-core/dynamic-modules/complete-dynamic-module.example.ts)
-- `forFeature()` - Synchronous feature configuration - [Example](./examples/01-core/dynamic-modules/complete-dynamic-module.example.ts)
-- `forFeatureAsync()` - Asynchronous feature configuration - [Example](./examples/01-core/dynamic-modules/complete-dynamic-module.example.ts)
-- `register()` - Simple registration pattern - [Example](./examples/01-core/dynamic-modules/complete-dynamic-module.example.ts)
-- `registerAsync()` - Simple async registration - [Example](./examples/01-core/dynamic-modules/complete-dynamic-module.example.ts)
+### 1. Callbacks
+- Callback pattern
+- Callback hell
+- Error-first callbacks
+- Nested callbacks
 
-**Practical Examples:**
-- [Database Module](./examples/01-core/dynamic-modules/complete-dynamic-module.example.ts)
-- [Cache Module](./examples/01-core/dynamic-modules/cache-module.example.ts)
-- [HTTP Client Module](./examples/01-core/dynamic-modules/http-client-module.example.ts)
-- [Logger Module](./examples/01-core/dynamic-modules/logger-module.example.ts)
-- [Usage Examples](./examples/01-core/dynamic-modules/usage-examples.module.ts)
-- [Complete Guide](./examples/01-core/dynamic-modules/README.md)
+### 2. Promises
+- Creating promises
+- `.then()` / `.catch()`
+- Promise chaining
+- `Promise.all()`
+- `Promise.race()`
+- `Promise.allSettled()`
+- `Promise.any()`
 
-### **Module Metadata**
-- `imports` - Import other modules
-- `controllers` - Controllers in module
-- `providers` - Providers in module
-- `exports` - Export providers
-- `global` - Make module global
+### 3. Async/Await
+- `async` functions
+- `await` keyword
+- Error handling with try/catch
+- Sequential vs parallel execution
+
+### 4. Event Loop
+- Call stack
+- Callback queue (Macrotask queue)
+- Microtask queue
+- Process.nextTick() queue
+- Execution order and priority
+- **📖 [Detailed Event Loop Guide](./docs/17-event-loop.md)**
+
+### 5. Event Loop Phases
+- **Phase 1: Timers** - setTimeout, setInterval callbacks
+- **Phase 2: Pending Callbacks** - Deferred I/O callbacks
+- **Phase 3: Idle, Prepare** - Internal use
+- **Phase 4: Poll** - Fetch I/O events, execute I/O callbacks
+- **Phase 5: Check** - setImmediate() callbacks
+- **Phase 6: Close Callbacks** - Close event callbacks
+- **💻 [Phase Examples](./examples/04-asynchronous/event-loop-phases.js)**
 
 ---
 
-## Controllers
+## Streams
 
-### **Route Handling**
-- Route Paths
-- Route Parameters
-- Query Parameters
-- Request Body
-- Response Handling
-- Status Codes
-- Headers
-- Redirects
+**📖 [Full Documentation](./docs/05-streams.md)** | **💻 [Examples](./examples/05-streams/)**
 
-### **HTTP Methods**
+### 1. Stream Types
+- Readable streams
+- Writable streams
+- Duplex streams
+- Transform streams
+
+### 2. Readable Streams
+- `fs.createReadStream()`
+- `stream.Readable`
+- Reading data
+- Piping
+- Events: `data`, `end`, `error`
+
+### 3. Writable Streams
+- `fs.createWriteStream()`
+- `stream.Writable`
+- Writing data
+- Events: `drain`, `finish`, `error`
+
+### 4. Piping
+- `pipe()` method
+- Chaining pipes
+- Error handling in pipes
+
+### 5. Transform Streams
+- `stream.Transform`
+- Data transformation
+- Creating custom transforms
+
+### 6. Stream Modes
+- Flowing mode
+- Paused mode
+- Switching between modes
+
+---
+
+## Events and Event Emitter
+
+**📖 [Full Documentation](./docs/06-events-event-emitter.md)** | **💻 [Examples](./examples/06-events/)**
+
+### 1. Event Emitter Pattern
+- `events.EventEmitter`
+- Creating event emitters
+- Extending EventEmitter
+
+### 2. Event Methods
+- `on()` / `addListener()`
+- `once()`
+- `emit()`
+- `removeListener()`
+- `removeAllListeners()`
+- `listeners()`
+
+### 3. Event Types
+- Custom events
+- Built-in events
+- Error events
+
+### 4. Event Best Practices
+- Error handling
+- Memory leaks
+- Event naming conventions
+
+---
+
+## HTTP and Web Servers
+
+**📖 [Full Documentation](./docs/07-http-web-servers.md)** | **💻 [Examples](./examples/07-http/)**
+
+### 1. Creating HTTP Server
+- `http.createServer()`
+- Request object
+- Response object
+- Server methods
+
+### 2. HTTP Methods
 - GET
 - POST
 - PUT
-- PATCH
 - DELETE
+- PATCH
 - OPTIONS
-- HEAD
-- ALL
 
-### **Route Patterns**
-- Static Routes
-- Parameter Routes (`:id`)
-- Wildcard Routes (`*`)
-- Route Prefixes
+### 3. Request Handling
+- Parsing URLs
+- Query parameters
+- Request headers
+- Request body
+- Content-Type
 
----
+### 4. Response Handling
+- Status codes
+- Response headers
+- Sending data
+- JSON responses
+- HTML responses
 
-## Providers & Services
+### 5. HTTPS
+- `https.createServer()`
+- SSL/TLS certificates
+- Secure connections
 
-### **Service Types**
-- Business Logic Services
-- Data Access Services
-- Utility Services
-- Factory Services
-- Helper Services
+### 6. HTTP Client
+- `http.request()`
+- `http.get()`
+- Making HTTP requests
+- Handling responses
 
-### **Service Patterns**
-- Singleton Pattern
-- Factory Pattern
-- Repository Pattern
-- Service Layer Pattern
-
----
-
-## Middleware
-
-**Code Examples:**
-- [Middleware Examples](./examples/03-middleware/logger.middleware.ts)
-- [Middleware Configuration](./examples/03-middleware/middleware.module.ts)
-- [Middleware Controller](./examples/03-middleware/middleware.controller.ts)
-
-### **Types**
-- Functional Middleware - [Example](./examples/03-middleware/logger.middleware.ts)
-- Class-based Middleware - [Example](./examples/03-middleware/logger.middleware.ts)
-- Global Middleware - [Example](./examples/03-middleware/middleware.module.ts)
-- Route-specific Middleware - [Example](./examples/03-middleware/middleware.module.ts)
-
-### **Built-in Middleware**
-- CORS - [Example](./examples/03-middleware/built-in-middleware.example.ts)
-- Helmet - [Example](./examples/03-middleware/built-in-middleware.example.ts)
-- Compression - [Example](./examples/03-middleware/built-in-middleware.example.ts)
-- Body Parser
-- Cookie Parser - [Example](./examples/03-middleware/built-in-middleware.example.ts)
-
-### **Custom Middleware**
-- Request Logging - [Example](./examples/03-middleware/logger.middleware.ts)
-- Authentication - [Example](./examples/03-middleware/logger.middleware.ts)
-- Request Transformation - [Example](./examples/03-middleware/logger.middleware.ts)
-- Response Transformation
-
----
-
-## Exception Filters
-
-**Code Examples:**
-- [Exception Filters](./examples/07-exceptions/exception-filters.ts)
-- [Exception Usage](./examples/07-exceptions/exceptions.controller.ts)
-
-### **Built-in Exceptions**
-- `BadRequestException` - [Example](./examples/07-exceptions/exceptions.controller.ts)
-- `UnauthorizedException` - [Example](./examples/07-exceptions/exceptions.controller.ts)
-- `NotFoundException` - [Example](./examples/07-exceptions/exceptions.controller.ts)
-- `ForbiddenException` - [Example](./examples/07-exceptions/exceptions.controller.ts)
-- `NotAcceptableException`
-- `RequestTimeoutException`
-- `ConflictException` - [Example](./examples/07-exceptions/exceptions.controller.ts)
-- `GoneException`
-- `HttpVersionNotSupportedException`
-- `PayloadTooLargeException`
-- `UnsupportedMediaTypeException`
-- `UnprocessableEntityException`
-- `InternalServerErrorException`
-- `NotImplementedException`
-- `BadGatewayException`
-- `ServiceUnavailableException`
-- `GatewayTimeoutException`
-
-### **Custom Exception Filters**
-- Global Exception Filters - [Example](./examples/07-exceptions/exception-filters.ts)
-- Controller-level Filters - [Example](./examples/07-exceptions/exceptions.controller.ts)
-- Method-level Filters - [Example](./examples/07-exceptions/exceptions.controller.ts)
-- Exception Transformation - [Example](./examples/07-exceptions/exception-filters.ts)
-- Error Logging - [Example](./examples/07-exceptions/exception-filters.ts)
-
----
-
-## Pipes
-
-**Code Examples:**
-- [Custom Pipes](./examples/04-pipes/validation.pipe.ts)
-- [Pipe Usage](./examples/04-pipes/pipes.controller.ts)
-
-### **Built-in Pipes**
-- `ValidationPipe` - DTO validation - [Example](./examples/04-pipes/pipes.controller.ts)
-- `ParseIntPipe` - Parse to integer - [Example](./examples/04-pipes/pipes.controller.ts)
-- `ParseFloatPipe` - Parse to float - [Example](./examples/04-pipes/additional-builtin-pipes.example.ts)
-- `ParseBoolPipe` - Parse to boolean - [Example](./examples/04-pipes/pipes.controller.ts)
-- `ParseArrayPipe` - Parse to array - [Example](./examples/04-pipes/pipes.controller.ts)
-- `ParseUUIDPipe` - Parse to UUID - [Example](./examples/04-pipes/additional-builtin-pipes.example.ts)
-- `ParseEnumPipe` - Parse to enum - [Example](./examples/04-pipes/pipes.controller.ts)
-- `DefaultValuePipe` - Default value - [Example](./examples/04-pipes/pipes.controller.ts)
-
-### **Custom Pipes**
-- Transformation Pipes - [Example](./examples/04-pipes/validation.pipe.ts)
-- Validation Pipes - [Example](./examples/04-pipes/validation.pipe.ts)
-- Async Pipes - [Example](./examples/04-pipes/async-pipes.example.ts)
-- Parameter Pipes - [Example](./examples/04-pipes/validation.pipe.ts)
-
-### **Pipe Usage**
-- Global Pipes
-- Controller-level Pipes - [Example](./examples/04-pipes/pipes.controller.ts)
-- Method-level Pipes - [Example](./examples/04-pipes/pipes.controller.ts)
-- Parameter-level Pipes - [Example](./examples/04-pipes/pipes.controller.ts)
-
----
-
-## Guards
-
-**Code Examples:**
-- [Guards Implementation](./examples/05-guards/auth.guard.ts)
-- [Guards Usage](./examples/05-guards/guards.controller.ts)
-
-### **Built-in Guards**
-- Authentication Guards
-- Authorization Guards
-- Role-based Guards - [Example](./examples/05-guards/auth.guard.ts)
-- Permission-based Guards - [Example](./examples/05-guards/auth.guard.ts)
-
-### **Custom Guards**
-- JWT Guards - [Example](./examples/11-auth/jwt.strategy.ts)
-- API Key Guards - [Example](./examples/05-guards/auth.guard.ts)
-- Session Guards
-- Custom Logic Guards - [Example](./examples/05-guards/auth.guard.ts)
-
-### **Guard Execution**
-- Global Guards
-- Controller-level Guards - [Example](./examples/05-guards/guards.controller.ts)
-- Method-level Guards - [Example](./examples/05-guards/guards.controller.ts)
-- Execution Order
-
----
-
-## Interceptors
-
-**Code Examples:**
-- [Interceptor Examples](./examples/06-interceptors/logging.interceptor.ts)
-- [Interceptor Usage](./examples/06-interceptors/interceptors.controller.ts)
-
-### **Use Cases**
-- Logging - [Example](./examples/06-interceptors/logging.interceptor.ts)
-- Transform Response - [Example](./examples/06-interceptors/logging.interceptor.ts)
-- Cache Response - [Example](./examples/06-interceptors/logging.interceptor.ts)
-- Timeout Handling - [Example](./examples/06-interceptors/logging.interceptor.ts)
-- Error Handling - [Example](./examples/06-interceptors/logging.interceptor.ts)
-- Performance Monitoring - [Example](./examples/06-interceptors/logging.interceptor.ts)
-- Request/Response Transformation - [Example](./examples/06-interceptors/logging.interceptor.ts)
-
-### **Interceptor Types**
-- Before Interceptors
-- After Interceptors
-- Error Interceptors - [Example](./examples/06-interceptors/logging.interceptor.ts)
-- Async Interceptors
-
-### **Interceptor Execution**
-- Global Interceptors
-- Controller-level Interceptors
-- Method-level Interceptors - [Example](./examples/06-interceptors/interceptors.controller.ts)
-- Execution Order
-
----
-
-## Custom Decorators
-
-**Code Examples:**
-- [Custom Decorators](./examples/02-decorators/custom-decorators.example.ts)
-
-### **Parameter Decorators**
-- Custom Parameter Extraction - [Example](./examples/02-decorators/custom-decorators.example.ts)
-- Metadata Decorators - [Example](./examples/02-decorators/custom-decorators.example.ts)
-- User Decorators - [Example](./examples/02-decorators/custom-decorators.example.ts)
-- Role Decorators - [Example](./examples/02-decorators/custom-decorators.example.ts)
-
-### **Method Decorators**
-- Custom Route Decorators
-- Metadata Decorators - [Example](./examples/02-decorators/custom-decorators.example.ts)
-- Permission Decorators
-
-### **Class Decorators**
-- Custom Module Decorators
-- Metadata Decorators
-
-### **Property Decorators**
-- Custom Injection Decorators
-- Validation Decorators
-
----
-
-## Lifecycle Hooks
-
-**Code Examples:**
-- [Lifecycle Hooks](./examples/12-advanced/lifecycle-hooks.example.ts)
-
-### **Module Lifecycle**
-- `onModuleInit()` - Called after module initialization - [Example](./examples/12-advanced/lifecycle-hooks.example.ts)
-- `onModuleDestroy()` - Called before module destruction - [Example](./examples/12-advanced/lifecycle-hooks.example.ts)
-- `onApplicationBootstrap()` - Called after application bootstrap - [Example](./examples/12-advanced/lifecycle-hooks.example.ts)
-- `onApplicationShutdown()` - Called before application shutdown - [Example](./examples/12-advanced/lifecycle-hooks.example.ts)
-
-### **Provider Lifecycle**
-- `onModuleInit()` - [Example](./examples/12-advanced/lifecycle-hooks.example.ts)
-- `onModuleDestroy()` - [Example](./examples/12-advanced/lifecycle-hooks.example.ts)
-- `onApplicationBootstrap()` - [Example](./examples/12-advanced/lifecycle-hooks.example.ts)
-- `onApplicationShutdown()` - [Example](./examples/12-advanced/lifecycle-hooks.example.ts)
-
----
-
-## Configuration
-
-**Code Examples:**
-- [Configuration Module](./examples/09-configuration/config.module.ts)
-- [Configuration Service](./examples/09-configuration/config.service.ts)
-- [Configuration Usage](./examples/09-configuration/config.controller.ts)
-
-### **Configuration Module**
-- Environment Variables - [Example](./examples/09-configuration/config.module.ts)
-- Configuration Files - [Example](./examples/09-configuration/config.module.ts)
-- Config Validation - [Example](./examples/09-configuration/config.module.ts)
-- Config Schema - [Example](./examples/09-configuration/config.module.ts)
-- Dynamic Configuration - [Example](./examples/09-configuration/config.module.ts)
-
-### **Configuration Sources**
-- `.env` files - [Example](./examples/09-configuration/config.module.ts)
-- Environment Variables - [Example](./examples/09-configuration/config.service.ts)
-- Configuration Files (JSON, YAML)
-- Runtime Configuration - [Example](./examples/09-configuration/config.service.ts)
-
----
-
-## Database Integration
-
-**Code Examples:**
-- [TypeORM Integration](./examples/10-database/typeorm.example.ts)
-- [TypeORM Entities](./examples/10-database/entities/user.entity.ts)
-- [TypeORM Service](./examples/10-database/users.service.ts)
-
-### **TypeORM**
-- Entities - [Example](./examples/10-database/entities/user.entity.ts)
-- Repositories - [Example](./examples/10-database/users.service.ts)
-- Entity Relations - [Example](./examples/10-database/entities/user.entity.ts)
-- Migrations
-- Transactions - [Example](./examples/10-database/users.service.ts)
-- Query Builder - [Example](./examples/10-database/users.service.ts)
-
-### **Mongoose**
-- Schemas - [Example](./examples/10-database/mongoose.example.ts)
-- Models - [Example](./examples/10-database/mongoose.example.ts)
-- Document Methods - [Example](./examples/10-database/mongoose.example.ts)
-- Queries - [Example](./examples/10-database/mongoose.example.ts)
+### 7. Express.js (Framework)
+- Routing
 - Middleware
-- Plugins
-
-**Code Examples:**
-- [Complete Mongoose Example](./examples/10-database/mongoose.example.ts)
-
-### **Prisma**
-- Prisma Client - [Example](./examples/10-database/prisma.example.ts)
-- Prisma Migrate
-- Prisma Studio
-- Relations - [Example](./examples/10-database/prisma.example.ts)
-- Transactions - [Example](./examples/10-database/prisma.example.ts)
-
-**Code Examples:**
-- [Complete Prisma Example](./examples/10-database/prisma.example.ts)
-
-### **Sequelize**
-- Models - [Example](./examples/10-database/sequelize.example.ts)
-- Associations - [Example](./examples/10-database/sequelize.example.ts)
-- Migrations
-- Transactions
-- Query Interface
-
-**Code Examples:**
-- [Complete Sequelize Example](./examples/10-database/sequelize.example.ts)
+- Request/Response objects
+- Template engines
+- Static files
+- **📖 [Full Express Documentation](./docs/18-express-framework.md)** | **💻 [Examples](./examples/18-express/)**
 
 ---
 
-## Authentication & Authorization
+## Buffers
 
-**Code Examples:**
-- [JWT Strategy](./examples/11-auth/jwt.strategy.ts)
-- [Auth Service](./examples/11-auth/auth.service.ts)
-- [Auth Module](./examples/11-auth/auth.module.ts)
-- [Auth Controller](./examples/11-auth/auth.controller.ts)
-- [Guards](./examples/05-guards/auth.guard.ts)
+**📖 [Full Documentation](./docs/08-buffers.md)** | **💻 [Examples](./examples/08-buffers/)**
 
-### **Authentication**
-- JWT Authentication - [Example](./examples/11-auth/jwt.strategy.ts)
-- Passport Integration - [Example](./examples/11-auth/auth.module.ts)
-- Local Strategy - [Example](./examples/11-auth/local-strategy.example.ts)
-- OAuth Strategies
-- API Key Authentication - [Example](./examples/05-guards/auth.guard.ts)
-- Session-based Authentication
+### 1. What are Buffers?
+- Binary data handling
+- Fixed-size memory allocation
+- Array-like structure
 
-### **Authorization**
-- Role-based Access Control (RBAC) - [Example](./examples/05-guards/auth.guard.ts)
-- Permission-based Access Control - [Example](./examples/05-guards/auth.guard.ts)
-- Custom Authorization Logic - [Example](./examples/05-guards/auth.guard.ts)
-- Guards for Authorization - [Example](./examples/05-guards/guards.controller.ts)
+### 2. Creating Buffers
+- `Buffer.alloc()`
+- `Buffer.from()`
+- `Buffer.allocUnsafe()`
 
-### **Security**
-- Password Hashing (bcrypt) - [Example](./examples/11-auth/auth.service.ts)
-- Token Management - [Example](./examples/11-auth/auth.service.ts)
-- Session Management
-- CSRF Protection
-- Rate Limiting
+### 3. Buffer Operations
+- Reading data
+- Writing data
+- Converting to strings
+- Converting from strings
+- Buffer concatenation
+
+### 4. Buffer Methods
+- `toString()`
+- `slice()`
+- `copy()`
+- `fill()`
+- `indexOf()`
 
 ---
 
-## Validation
+## Process and OS
 
-**Code Examples:**
-- [DTOs with Validation](./examples/08-validation/create-user.dto.ts)
-- [Validation Controller](./examples/08-validation/validation.controller.ts)
+**📖 [Full Documentation](./docs/09-process-os.md)** | **💻 [Examples](./examples/09-process-os/)**
 
-### **Class Validator**
-- Validation Decorators - [Example](./examples/08-validation/create-user.dto.ts)
-- Custom Validators - [Example](./examples/08-validation/create-user.dto.ts)
-- Validation Groups - [Example](./examples/08-validation/validation-groups.example.ts)
-- Conditional Validation - [Example](./examples/08-validation/validation-groups.example.ts)
-- Async Validation - [Example](./examples/08-validation/validation-groups.example.ts)
+### 1. Process Object
+- `process.argv`
+- `process.env`
+- `process.cwd()`
+- `process.exit()`
+- `process.on()`
+- Process events
 
-### **Validation Decorators**
-- `@IsString()` - [Example](./examples/08-validation/create-user.dto.ts)
-- `@IsNumber()` - [Example](./examples/08-validation/create-user.dto.ts)
-- `@IsEmail()` - [Example](./examples/08-validation/create-user.dto.ts)
-- `@IsOptional()` - [Example](./examples/08-validation/create-user.dto.ts)
-- `@IsNotEmpty()` - [Example](./examples/08-validation/create-user.dto.ts)
-- `@Min()`, `@Max()` - [Example](./examples/08-validation/create-user.dto.ts)
-- `@Length()` - [Example](./examples/08-validation/create-user.dto.ts)
-- `@Matches()` - [Example](./examples/08-validation/create-user.dto.ts)
-- `@IsArray()` - [Example](./examples/08-validation/create-user.dto.ts)
-- `@IsObject()`
-- `@ValidateNested()` - [Example](./examples/08-validation/create-user.dto.ts)
-- Custom Validators - [Example](./examples/08-validation/create-user.dto.ts)
+### 2. Environment Variables
+- Accessing env variables
+- Setting env variables
+- `.env` files
+- dotenv package
 
-### **DTOs (Data Transfer Objects)**
-- Request DTOs - [Example](./examples/08-validation/create-user.dto.ts)
-- Response DTOs - [Example](./examples/08-validation/response-dtos.example.ts)
-- Validation DTOs - [Example](./examples/08-validation/create-user.dto.ts)
-- Transformation DTOs - [Example](./examples/08-validation/response-dtos.example.ts)
+### 3. OS Module
+- `os.platform()`
+- `os.arch()`
+- `os.cpus()`
+- `os.totalmem()`
+- `os.freemem()`
+- `os.hostname()`
+- `os.homedir()`
 
----
-
-## Testing
-
-### **Unit Testing**
-- Service Testing
-- Controller Testing
-- Provider Testing
-- Mocking Dependencies
-- Test Utilities
-
-### **Integration Testing**
-- E2E Testing
-- Module Testing
-- Database Testing
-- API Testing
-
-### **Testing Utilities**
-- `@nestjs/testing`
-- Test Module
-- Override Providers
-- Mock Factories
-
-**Note:** Testing examples would require a complete test setup. The concepts are covered in the NestJS official documentation.
+### 4. Process Events
+- `exit`
+- `uncaughtException`
+- `unhandledRejection`
+- `SIGINT` / `SIGTERM`
 
 ---
 
-## Advanced Features
+## Error Handling
 
-**Code Examples:**
-- [WebSockets](./examples/12-advanced/websockets.gateway.ts)
-- [GraphQL](./examples/12-advanced/graphql.resolver.ts)
-- [Microservices](./examples/12-advanced/microservices.controller.ts)
-- [CQRS](./examples/12-advanced/cqrs.example.ts)
-- [File Upload](./examples/12-advanced/file-upload.controller.ts)
-- [Caching](./examples/12-advanced/caching.example.ts)
-- [Task Scheduling](./examples/12-advanced/scheduling.example.ts)
+**📖 [Full Documentation](./docs/13-error-handling.md)** | **💻 [Examples](./examples/13-error-handling/)**
 
-### **WebSockets**
-- Gateways - [Example](./examples/12-advanced/websockets.gateway.ts)
-- WebSocket Adapters
-- Socket.IO Integration - [Example](./examples/12-advanced/websockets.gateway.ts)
-- Real-time Communication - [Example](./examples/12-advanced/websockets.gateway.ts)
+### 1. Error Types
+- Standard Error
+- Custom errors
+- Error objects
+- Error properties
 
-### **GraphQL**
-- GraphQL Module
-- Resolvers - [Example](./examples/12-advanced/graphql.resolver.ts)
-- Queries - [Example](./examples/12-advanced/graphql.resolver.ts)
-- Mutations - [Example](./examples/12-advanced/graphql.resolver.ts)
-- Subscriptions - [Example](./examples/12-advanced/graphql-subscriptions.example.ts)
-- Schema Definition - [Example](./examples/12-advanced/graphql-types/user.type.ts)
+### 2. Error Handling Patterns
+- Try/catch blocks
+- Error-first callbacks
+- Promise rejections
+- Async/await error handling
 
-### **Microservices**
-- Microservice Transport - [Example](./examples/12-advanced/microservices.controller.ts)
-- Message Patterns - [Example](./examples/12-advanced/microservices.controller.ts)
-- Event Patterns - [Example](./examples/12-advanced/microservices.controller.ts)
-- Client Proxy - [Example](./examples/12-advanced/microservices.controller.ts)
-- Hybrid Applications
+### 3. Global Error Handling
+- `process.on('uncaughtException')`
+- `process.on('unhandledRejection')`
+- Error middleware
 
-### **CQRS**
-- Commands - [Example](./examples/12-advanced/cqrs.example.ts)
-- Queries - [Example](./examples/12-advanced/cqrs.example.ts)
-- Events - [Example](./examples/12-advanced/cqrs.example.ts)
-- Event Handlers - [Example](./examples/12-advanced/cqrs.example.ts)
-- Sagas
+### 4. Best Practices
+- Always handle errors
+- Don't ignore errors
+- Log errors appropriately
+- Error propagation
 
-### **Event Emitter**
-- Event Publishing - [Example](./examples/12-advanced/event-emitter.example.ts)
-- Event Listening - [Example](./examples/12-advanced/event-emitter.example.ts)
-- Async Events - [Example](./examples/12-advanced/event-emitter.example.ts)
-- Event Patterns - [Example](./examples/12-advanced/event-emitter.example.ts)
+---
 
-**Code Examples:**
-- [Complete Event Emitter Example](./examples/12-advanced/event-emitter.example.ts)
+## Child Processes
 
-### **File Upload**
-- File Interceptor - [Example](./examples/12-advanced/file-upload.controller.ts)
-- File Upload - [Example](./examples/12-advanced/file-upload.controller.ts)
-- File Validation - [Example](./examples/12-advanced/file-upload.controller.ts)
-- File Storage - [Example](./examples/12-advanced/file-upload.controller.ts)
+**📖 [Full Documentation](./docs/12-child-processes-clusters.md)** | **💻 [Examples](./examples/12-child-processes/)**
 
-### **Caching**
-- Cache Manager - [Example](./examples/12-advanced/caching.example.ts)
-- Cache Interceptor - [Example](./examples/12-advanced/caching.example.ts)
-- Cache Keys - [Example](./examples/12-advanced/caching.example.ts)
-- Cache TTL - [Example](./examples/12-advanced/caching.example.ts)
-- Redis Integration
+### 1. Spawning Processes
+- `child_process.spawn()`
+- `child_process.exec()`
+- `child_process.execFile()`
+- `child_process.fork()`
 
-### **Task Scheduling**
-- Cron Jobs - [Example](./examples/12-advanced/scheduling.example.ts)
-- Interval Jobs - [Example](./examples/12-advanced/scheduling.example.ts)
-- Timeout Jobs - [Example](./examples/12-advanced/scheduling.example.ts)
-- Task Scheduling - [Example](./examples/12-advanced/scheduling.example.ts)
+### 2. Process Communication
+- stdin/stdout/stderr
+- IPC (Inter-Process Communication)
+- Sending messages
+- Receiving messages
 
-### **HTTP Module**
-- HTTP Client - [Example](./examples/12-advanced/http-module.example.ts)
-- Axios Integration - [Example](./examples/12-advanced/http-module.example.ts)
-- Request Configuration - [Example](./examples/12-advanced/http-module.example.ts)
-- Response Handling - [Example](./examples/12-advanced/http-module.example.ts)
+### 3. Process Options
+- `cwd` - Working directory
+- `env` - Environment variables
+- `stdio` - Standard I/O configuration
+- `detached` - Run independently of parent
+- **💻 [Detached Process Examples](./examples/12-child-processes/detached-process.js)**
 
-**Code Examples:**
-- [Complete HTTP Module Example](./examples/12-advanced/http-module.example.ts)
-- [HTTP Module Controller](./examples/12-advanced/http-module.controller.ts)
+### 4. Use Cases
+- Running shell commands
+- Executing scripts
+- Parallel processing
+- Worker processes
 
-### **Logging**
-- Logger Service - [Example](./examples/12-advanced/logging.example.ts)
-- Custom Loggers - [Example](./examples/12-advanced/logging.example.ts)
-- Log Levels - [Example](./examples/12-advanced/logging.example.ts)
-- Log Formatting - [Example](./examples/12-advanced/logging.example.ts)
+---
 
-**Code Examples:**
-- [Complete Logging Example](./examples/12-advanced/logging.example.ts)
-- [Basic Logger](./examples/01-core/shared/logger.service.ts)
-- [Custom Logger Service](./examples/12-advanced/logging.example.ts)
-- [File Logger](./examples/12-advanced/logging.example.ts)
-- [Structured Logger](./examples/12-advanced/logging.example.ts)
+## Clusters
 
-### **Serialization**
-- Class Serializer - [Example](./examples/12-advanced/serialization.example.ts)
-- Exclude Properties - [Example](./examples/12-advanced/serialization.example.ts)
-- Transform Properties - [Example](./examples/12-advanced/serialization.example.ts)
-- Serialization Groups - [Example](./examples/12-advanced/serialization.example.ts)
+**📖 [Full Documentation](./docs/12-child-processes-clusters.md)** | **💻 [Examples](./examples/12-child-processes/)**
 
-**Code Examples:**
-- [Complete Serialization Example](./examples/12-advanced/serialization.example.ts)
+### 1. Cluster Module
+- `cluster` module
+- Master process
+- Worker processes
+- Process forking
 
-### **Versioning**
-- URI Versioning - [Example](./examples/12-advanced/versioning.example.ts)
-- Header Versioning - [Example](./examples/12-advanced/versioning.example.ts)
-- Media Type Versioning - [Example](./examples/12-advanced/versioning.example.ts)
-- Version Controllers - [Example](./examples/12-advanced/versioning.example.ts)
+### 2. Load Balancing
+- Round-robin scheduling - Even distribution of requests
+- Sharing server ports - All workers share the same port
+- Worker distribution - One worker per CPU core
+- **💻 [Load Balancing Example](./examples/12-child-processes/cluster-load-balancing.js)**
 
-**Code Examples:**
-- [Complete Versioning Example](./examples/12-advanced/versioning.example.ts)
+### 3. Cluster Events
+- Worker events - fork, online, listening, disconnect, exit
+- Master events - message, setup, worker management
+- Communication - IPC between master and workers
+- **💻 [Cluster Events Example](./examples/12-child-processes/cluster-events.js)**
 
-### **Compression**
-- Compression Middleware - [Example](./examples/12-advanced/compression.example.ts)
-- Response Compression - [Example](./examples/12-advanced/compression.example.ts)
-- Compression Options - [Example](./examples/12-advanced/compression.example.ts)
+### 4. Use Cases
+- Multi-core utilization - Use all CPU cores effectively
+- High availability - Automatic worker restart on failure
+- Performance scaling - Handle more concurrent requests
+- **💻 [Use Cases Example](./examples/12-child-processes/cluster-use-cases.js)**
 
-**Code Examples:**
-- [Complete Compression Example](./examples/12-advanced/compression.example.ts)
+---
 
-### **Rate Limiting**
-- Rate Limiter - [Example](./examples/12-advanced/rate-limiting.example.ts)
-- Throttler Guard - [Example](./examples/12-advanced/rate-limiting.example.ts)
-- Rate Limit Configuration - [Example](./examples/12-advanced/rate-limiting.example.ts)
+## Path Module
 
-**Code Examples:**
-- [Complete Rate Limiting Example](./examples/12-advanced/rate-limiting.example.ts)
+**📖 [Full Documentation](./docs/11-path-url.md)** | **💻 [Examples](./examples/11-path-url/)**
 
-### **Health Checks**
-- Health Check Module - [Example](./examples/12-advanced/health-checks.example.ts)
-- Health Indicators - [Example](./examples/12-advanced/health-checks.example.ts)
-- Custom Health Checks - [Example](./examples/12-advanced/health-checks.example.ts)
+### 1. Path Operations
+- `path.join()`
+- `path.resolve()`
+- `path.normalize()`
+- `path.parse()`
+- `path.format()`
 
-**Code Examples:**
-- [Complete Health Checks Example](./examples/12-advanced/health-checks.example.ts)
-- Database Health Check
-- HTTP Health Check
-- Memory Health Check
-- Disk Health Check
-- Comprehensive Health Check
+### 2. Path Utilities
+- `path.basename()`
+- `path.dirname()`
+- `path.extname()`
+- `path.isAbsolute()`
 
-### **Documentation**
-- Swagger/OpenAPI - [Example](./examples/12-advanced/documentation-swagger.example.ts)
-- API Documentation - [Example](./examples/12-advanced/documentation-swagger.example.ts)
-- Schema Generation - [Example](./examples/12-advanced/documentation-swagger.example.ts)
-- Decorators for Documentation - [Example](./examples/12-advanced/documentation-swagger.example.ts)
+### 3. Platform Differences
+- Windows vs Unix paths
+- Path separators
+- Cross-platform compatibility
 
-**Code Examples:**
-- [Complete Swagger/OpenAPI Example](./examples/12-advanced/documentation-swagger.example.ts)
+---
 
-### **Internationalization (i18n)**
-- i18n Module - [Example](./examples/12-advanced/i18n.example.ts)
-- Translation Files - [Example](./examples/12-advanced/i18n.example.ts)
-- Language Detection - [Example](./examples/12-advanced/i18n.example.ts)
-- Translation Service - [Example](./examples/12-advanced/i18n.example.ts)
+## URL Module
 
-**Code Examples:**
-- [Complete i18n Example](./examples/12-advanced/i18n.example.ts)
+**📖 [Full Documentation](./docs/11-path-url.md)** | **💻 [Examples](./examples/11-path-url/)**
 
-### **Server-Sent Events (SSE)**
-- SSE Endpoints - [Example](./examples/12-advanced/sse-server-sent-events.example.ts)
-- Event Streaming - [Example](./examples/12-advanced/sse-server-sent-events.example.ts)
-- Real-time Updates - [Example](./examples/12-advanced/sse-server-sent-events.example.ts)
+### 1. URL Parsing
+- `url.parse()`
+- `url.format()`
+- `url.resolve()`
+- URL object properties
 
-**Code Examples:**
-- [Complete SSE Example](./examples/12-advanced/sse-server-sent-events.example.ts)
+### 2. URL Components
+- Protocol
+- Hostname
+- Port
+- Pathname
+- Query string
+- Hash
 
-### **Streaming**
-- Response Streaming - [Example](./examples/12-advanced/streaming.example.ts)
-- File Streaming - [Example](./examples/12-advanced/streaming.example.ts)
-- Data Streaming - [Example](./examples/12-advanced/streaming.example.ts)
+### 3. URLSearchParams
+- Creating params
+- Getting values
+- Setting values
+- Iterating params
 
-**Code Examples:**
-- [Complete Streaming Example](./examples/12-advanced/streaming.example.ts)
-- File Streaming
-- Data Streaming
-- Large Dataset Streaming
-- Video Streaming
-- Real-time Streaming
+---
+
+## Crypto Module
+
+**📖 [Full Documentation](./docs/10-crypto.md)** | **💻 [Examples](./examples/10-crypto/)**
+
+### 1. Hashing
+- `crypto.createHash()`
+- MD5, SHA1, SHA256, SHA512
+- Hash algorithms
+
+### 2. Encryption
+- `crypto.createCipher()`
+- `crypto.createDecipher()`
+- Symmetric encryption
+- Asymmetric encryption
+
+### 3. Digital Signatures
+- `crypto.createSign()`
+- `crypto.createVerify()`
+- Signing data
+- Verifying signatures
+
+### 4. Random Data
+- `crypto.randomBytes()`
+- Generating secure random data
+- UUIDs
+
+---
+
+## Timers
+
+**📖 [Full Documentation](./docs/14-timers.md)** | **💻 [Examples](./examples/14-timers/)**
+
+### 1. setTimeout
+- Delayed execution
+- Clearing timeouts
+- `clearTimeout()`
+
+### 2. setInterval
+- Repeated execution
+- Clearing intervals
+- `clearInterval()`
+
+### 3. setImmediate
+- Immediate execution
+- Event loop scheduling
+- `clearImmediate()`
+
+### 4. process.nextTick
+- Next tick queue
+- Microtask scheduling
+- Priority over setImmediate
+
+---
+
+## Utilities
+
+**📖 [Full Documentation](./docs/15-utilities.md)** | **💻 [Examples](./examples/15-utilities/)**
+
+### 1. Util Module
+- `util.promisify()`
+- `util.inherits()`
+- `util.inspect()`
+- `util.format()`
+- `util.types()`
+
+### 2. Debugging
+- `console.log()`
+- `console.error()`
+- `console.warn()`
+- `console.debug()`
+- `console.trace()`
+
+### 3. Assertions
+- `assert` module
+- Testing utilities
+- Assertion methods
 
 ---
 
 ## Best Practices
 
-1. **Module Organization**
-   - Feature-based modules
-   - Shared modules for common functionality
-   - Avoid circular dependencies
+**📖 [Full Documentation](./docs/16-best-practices.md)**
 
-2. **Dependency Injection**
-   - Use constructor injection
-   - Keep dependencies explicit
-   - Use interfaces for abstraction
+### 1. Code Organization
+- Project structure
+- Module organization
+- Separation of concerns
 
-3. **Error Handling**
-   - Use exception filters
-   - Provide meaningful error messages
-   - Log errors appropriately
+### 2. Performance
+- Avoiding blocking operations
+- Using streams for large data
+- Caching strategies
+- Connection pooling
 
-4. **Validation**
-   - Validate all inputs
-   - Use DTOs for data transfer
-   - Validate at the boundary
+### 3. Security
+- Input validation
+- Avoiding eval()
+- Secure dependencies
+- Environment variables
+- HTTPS usage
 
-5. **Security**
-   - Authenticate all protected routes
-   - Authorize based on roles/permissions
-   - Sanitize inputs
-   - Use HTTPS in production
+### 4. Error Handling
+- Consistent error handling
+- Error logging
+- Graceful degradation
 
-6. **Performance**
-   - Use caching where appropriate
-   - Optimize database queries
-   - Use compression
-   - Monitor performance
+### 5. Testing
+- Unit testing
+- Integration testing
+- Test frameworks (Jest, Mocha)
+- Test coverage
 
-7. **Testing**
-   - Write unit tests
-   - Write integration tests
-   - Maintain high test coverage
-   - Test edge cases
-
-8. **Code Quality**
-   - Follow SOLID principles
-   - Use TypeScript strictly
-   - Document complex logic
-   - Keep functions small and focused
+### 6. Deployment
+- Process managers (PM2)
+- Environment configuration
+- Logging
+- Monitoring
 
 ---
 
+## Additional Topics
+
+### 1. WebSockets
+- `ws` package
+- Real-time communication
+- Socket.io
+
+### 2. RESTful APIs
+- API design
+- REST principles
+- Express.js routing
+
+### 3. GraphQL
+- GraphQL basics
+- Apollo Server
+- Schema definition
+
+### 4. Database Integration
+- MongoDB (Mongoose)
+- PostgreSQL
+- MySQL
+- Redis
+
+### 5. Authentication & Authorization
+- JWT tokens
+- OAuth
+- Session management
+- bcrypt
+
+### 6. File Uploads
+- Multer
+- File validation
+- Storage strategies
+
+### 7. Caching
+- Redis caching
+- Memory caching
+- Cache strategies
+
+### 8. Logging
+- Winston
+- Morgan
+- Log levels
+- Log rotation
+
+### 9. Testing
+- Jest
+- Mocha/Chai
+- Supertest
+- Test coverage
+
+### 10. TypeScript
+- TypeScript with Node.js
+- Type definitions
+- ts-node
+
+---
+
+## Quick Start
+
+### Running Examples
+
+1. **Core Fundamentals**
+   ```bash
+   node examples/01-core-fundamentals.js
+   node examples/01-architecture-demo.js
+   ```
+
+2. **Modules**
+   ```bash
+   node examples/02-modules/commonjs-imports.js
+   node examples/02-modules/esm-imports.mjs
+   ```
+
+3. **File System**
+   ```bash
+   node examples/03-file-system/promise-operations.js
+   ```
+
+4. **Asynchronous Programming**
+   ```bash
+   node examples/04-asynchronous/async-await.js
+   node examples/04-asynchronous/event-loop.js
+   node examples/04-asynchronous/event-loop-detailed.js
+   node examples/04-asynchronous/event-loop-phases.js
+   ```
+
+5. **Streams**
+   ```bash
+   node examples/05-streams/piping.js
+   ```
+
+6. **Events**
+   ```bash
+   node examples/06-events/basic-events.js
+   ```
+
+7. **HTTP Server**
+   ```bash
+   node examples/07-http/basic-server.js
+   # Then visit http://localhost:3000
+   ```
+
+8. **Buffers**
+   ```bash
+   node examples/08-buffers/buffer-basics.js
+   ```
+
+9. **Process & OS**
+   ```bash
+   node examples/09-process-os/process-examples.js
+   node examples/09-process-os/os-examples.js
+   ```
+
+10. **Crypto**
+    ```bash
+    node examples/10-crypto/hashing.js
+    ```
+
+11. **Path & URL**
+    ```bash
+    node examples/11-path-url/path-examples.js
+    node examples/11-path-url/url-examples.js
+    ```
+
+12. **Child Processes & Clusters**
+    ```bash
+    node examples/12-child-processes/exec-example.js
+    node examples/12-child-processes/cluster-example.js
+    node examples/12-child-processes/detached-process.js
+    node examples/12-child-processes/spawn-detached.js
+    node examples/12-child-processes/cluster-load-balancing.js
+    node examples/12-child-processes/cluster-events.js
+    node examples/12-child-processes/cluster-use-cases.js
+    ```
+
+13. **Error Handling**
+    ```bash
+    node examples/13-error-handling/error-types.js
+    node examples/13-error-handling/error-handling-patterns.js
+    node examples/13-error-handling/global-error-handling.js
+    ```
+
+14. **Timers**
+    ```bash
+    node examples/14-timers/timers-basics.js
+    node examples/14-timers/timer-patterns.js
+    ```
+
+15. **Utilities**
+    ```bash
+    node examples/15-utilities/util-examples.js
+    ```
+
+16. **Express.js**
+    ```bash
+    node examples/18-express/basic-server.js
+    node examples/18-express/routing.js
+    node examples/18-express/middleware.js
+    node examples/18-express/rest-api.js
+    node examples/18-express/router-module.js
+    ```
+
+## Documentation Structure
+
+```
+nodejs-core/
+├── docs/                    # Detailed documentation
+│   ├── 01-core-fundamentals.md
+│   ├── 02-modules-package-management.md
+│   ├── 03-file-system-operations.md
+│   ├── 04-asynchronous-programming.md
+│   ├── 05-streams.md
+│   ├── 06-events-event-emitter.md
+│   ├── 07-http-web-servers.md
+│   ├── 08-buffers.md
+│   ├── 09-process-os.md
+│   ├── 10-crypto.md
+│   ├── 11-path-url.md
+│   ├── 12-child-processes-clusters.md
+│   ├── 13-error-handling.md
+│   ├── 14-timers.md
+│   ├── 15-utilities.md
+│   ├── 16-best-practices.md
+│   ├── 17-event-loop.md
+│   └── 18-express-framework.md
+├── examples/                # Working code examples
+│   ├── 01-core-fundamentals.js
+│   ├── 02-modules/
+│   ├── 03-file-system/
+│   ├── 04-asynchronous/
+│   ├── 05-streams/
+│   ├── 06-events/
+│   ├── 07-http/
+│   ├── 08-buffers/
+│   ├── 09-process-os/
+│   ├── 10-crypto/
+│   ├── 11-path-url/
+│   ├── 12-child-processes/
+│   ├── 13-error-handling/
+│   ├── 14-timers/
+│   ├── 15-utilities/
+│   └── 18-express/
+└── README.md
+```
+
 ## Resources
 
-- [NestJS Official Documentation](https://docs.nestjs.com/)
-- [NestJS GitHub Repository](https://github.com/nestjs/nest)
-- [NestJS Examples](https://github.com/nestjs/nest/tree/master/sample)
-- [NestJS Best Practices](https://github.com/nestjs/awesome-nestjs)
+- [Node.js Official Documentation](https://nodejs.org/docs/)
+- [Node.js API Reference](https://nodejs.org/api/)
+- [npm Documentation](https://docs.npmjs.com/)
+- [Node.js Best Practices](https://github.com/goldbergyoni/nodebestpractices)
 
 ---
 
 ## License
 
-This project is for educational purposes.
+This repository is for educational purposes.
 
